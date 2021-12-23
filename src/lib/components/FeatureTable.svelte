@@ -3,6 +3,7 @@
   import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
   import IconButton, { Icon } from '@smui/icon-button';
   import Card from '@smui/card';
+  import Tooltip, { Wrapper } from '@smui/tooltip';
   import { icons } from '$lib/utils/icons';
   import { downloadFeature, getFeatureName } from '$lib/utils/geojson';
 
@@ -22,13 +23,21 @@
       {#each features as feature}
         <Row>
           <Cell checkbox>
-            <Icon class="material-icons">{icons[feature.geometry.type]}</Icon>
+            <Wrapper>
+              <Icon class="material-icons">
+                {icons[feature.geometry.type]}
+              </Icon>
+              <Tooltip>Geometry of type: {feature.geometry.type}</Tooltip>
+            </Wrapper>
           </Cell>
           <Cell>{getFeatureName(feature)}</Cell>
           <Cell checkbox>
-            <IconButton on:click={() => downloadFeature(feature)} class="material-icons">
-              file_download</IconButton
-            >
+            <Wrapper>
+              <IconButton on:click={() => downloadFeature(feature)} class="material-icons">
+                file_download
+              </IconButton>
+              <Tooltip style="z-index:90000" xPos="end">Download this feature as GeoJson</Tooltip>
+            </Wrapper>
           </Cell>
         </Row>
       {/each}
