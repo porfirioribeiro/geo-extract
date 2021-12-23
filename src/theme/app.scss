@@ -1,0 +1,17 @@
+@use '@material/typography/mdc-typography';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+html {
+  height: auto;
+  width: auto;
+  position: static;
+}
+body,
+#svelte {
+  display: block;
+  height: auto;
+}

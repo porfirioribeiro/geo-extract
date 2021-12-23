@@ -1,0 +1,28 @@
+<script lang="ts">
+  import type { Feature } from 'geojson';
+
+  import 'leaflet/dist/leaflet.css';
+  import { LeafletMap, TileLayer } from 'svelte-leafletjs';
+  import GeoFeature from './GeoFeature.svelte';
+  export let features: Feature[];
+
+  const mapOptions = {
+    center: [1.250111, 103.830933],
+    zoom: 13
+  };
+
+  const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const tileLayerOptions = {
+    minZoom: 0,
+    maxZoom: 20,
+    maxNativeZoom: 19,
+    attribution: '© OpenStreetMap contributors'
+  };
+</script>
+
+<LeafletMap options={mapOptions}>
+  <TileLayer url={tileUrl} options={tileLayerOptions} />
+  {#each features as feature}
+    <GeoFeature {feature} />
+  {/each}
+</LeafletMap>
