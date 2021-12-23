@@ -3,7 +3,7 @@
 
   import DropTarget from '$lib/components/DropTarget.svelte';
   import { fileToGeoJson } from '$lib/utils/kml';
-  import { geoJsonToFeatures } from '$lib/utils/geojson';
+  import { geoJsonToFeatures, getFeatureName } from '$lib/utils/geojson';
   import { download } from '$lib/utils/download';
 
   let allFeatures: Feature[] = [];
@@ -33,7 +33,7 @@
 
   function dload(feature: Feature) {
     console.log('download', feature);
-    const name = feature.properties?.name ?? feature.id ?? 'feature';
+    const name = getFeatureName(feature);
     download(JSON.stringify(feature, null, 2), 'application/geojson', `${name}.geojson`);
   }
 </script>
@@ -54,7 +54,7 @@
 {#each features as feature}
   <div class="feature">
     <span class="material-icons">{icons[feature.geometry.type]}</span>
-    {feature.properties.name}
+    {getFeatureName(feature)}
     <button on:click={() => dload(feature)}
       >Download geojson <span class="material-icons">file_download</span></button
     >

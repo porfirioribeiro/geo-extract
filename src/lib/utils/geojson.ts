@@ -6,3 +6,7 @@ export function geoJsonToFeatures(geoJson: GeoJSON): Feature[] {
   if (geoJson.type === 'GeometryCollection') return []; // todo
   return [{ type: 'Feature', geometry: geoJson, properties: {} }];
 }
+
+export function getFeatureName(feature: Feature) {
+  return feature.properties?.name ?? feature.id ?? 'feature';
+}
