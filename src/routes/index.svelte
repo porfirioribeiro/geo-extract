@@ -16,13 +16,12 @@
 
   import DropTarget from '$lib/components/DropTarget.svelte';
   import { fileToGeoJson } from '$lib/utils/kml';
-  import { geoJsonToFeatures, getFeatureName } from '$lib/utils/geojson';
-  import { download } from '$lib/utils/download';
-  import { icons } from '$lib/utils/icons';
+  import { ensureFeatureIdAndName, geoJsonToFeatures } from '$lib/utils/geojson';
   import FeatureTable from '$lib/components/FeatureTable.svelte';
 
   let allFeatures: Feature[] = [];
   let features: Feature[] = [];
+  let focusFeature: Feature;
   let filters: GeoJsonGeometryTypes[] = [];
   let filter: GeoJsonGeometryTypes;
 
@@ -34,7 +33,7 @@
     const file = files[0];
     const geoJson = await fileToGeoJson(file);
 
-    allFeatures = geoJsonToFeatures(geoJson);
+    allFeatures = ensureFeatureIdAndName(geoJsonToFeatures(geoJson));
     filters = [...new Set(allFeatures.map((f) => f.geometry.type))];
   }
 
@@ -54,9 +53,9 @@
     </div>
   </div>
 
-  <FeatureTable style="grid-area: sd;" {features} />
+  <FeatureTable style="grid-area: sd;" {features} bind:focusFeature />
   <div style="grid-area: map; z-index: 0">
-    <svelte:component this={LeafletContainer} {features} />
+    <svelte:component this={LeafletContainer} {features} {focusFeature} />
   </div>
 </div>
 

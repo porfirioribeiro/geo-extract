@@ -8,6 +8,7 @@
   import { downloadFeature, getFeatureName } from '$lib/utils/geojson';
 
   export let features: Feature[];
+  export let focusFeature: Feature;
 </script>
 
 <Card style={'overflow:auto;' + $$restProps.style}>
@@ -30,7 +31,7 @@
               <Tooltip>Geometry of type: {feature.geometry.type}</Tooltip>
             </Wrapper>
           </Cell>
-          <Cell>{getFeatureName(feature)}</Cell>
+          <Cell on:click={() => (focusFeature = feature)}>{getFeatureName(feature)}</Cell>
           <Cell checkbox>
             <Wrapper>
               <IconButton on:click={() => downloadFeature(feature)} class="material-icons">

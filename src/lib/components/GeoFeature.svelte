@@ -16,12 +16,10 @@
     }
   };
 
-  $: {
-    geojson = L.geoJSON(null, options).addTo(getMap());
-    geojson.on('click', (e: LeafletMouseEvent) => onClick(feature, e));
-  }
+  $: geojson = L.geoJSON(null, options).addTo(getMap());
 
   $: {
+    geojson.on('click', (e: LeafletMouseEvent) => onClick(feature, e));
     geojson.clearLayers();
     geojson.addData(feature);
   }

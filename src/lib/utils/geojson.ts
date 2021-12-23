@@ -1,4 +1,4 @@
-import type { Feature, GeoJSON } from 'geojson';
+import type { Feature, GeoJSON, Geometry } from 'geojson';
 import { download } from './download';
 
 export function geoJsonToFeatures(geoJson: GeoJSON): Feature[] {
@@ -8,12 +8,18 @@ export function geoJsonToFeatures(geoJson: GeoJSON): Feature[] {
   return [{ type: 'Feature', geometry: geoJson, properties: {} }];
 }
 
+export function ensureFeatureIdAndName(features: Feature[]): Feature[] {
+  return features.map((f, i) => {
+    const id = f.id ?? `feat-${i}`;
+    return { ...f, id, properties: { ...f.properties, name: f.properties?.name ?? id } };
+  });
+}
+
 export function getFeatureName(feature: Feature) {
   return feature.properties?.name ?? feature.id ?? 'feature';
 }
 
 export function downloadFeature(feature: Feature) {
-  console.log('download', feature);
   const name = getFeatureName(feature);
   download(JSON.stringify(feature, null, 2), 'application/geojson', `${name}.geojson`);
 }

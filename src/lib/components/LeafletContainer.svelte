@@ -8,6 +8,7 @@
   import bbox from '@turf/bbox';
 
   export let features: Feature[];
+  export let focusFeature: Feature;
 
   let lm: { getMap(): Map };
 
@@ -24,12 +25,7 @@
     attribution: '© OpenStreetMap contributors'
   };
 
-  $: {
-    if (features.length && lm) {
-      const f = features[0];
-      focusOn(f);
-    }
-  }
+  $: if (focusFeature && lm) focusOn(focusFeature);
 
   function focusOn(f: Feature) {
     if (f.geometry.type === 'Point') {
@@ -45,13 +41,13 @@
   }
 
   function onClick(f: Feature) {
-    console.log('click!');
+    //todo
   }
 </script>
 
 <LeafletMap options={mapOptions} bind:this={lm}>
   <TileLayer url={tileUrl} options={tileLayerOptions} />
-  {#each features as feature}
+  {#each features as feature (feature.id)}
     <GeoFeature {feature} {onClick} />
   {/each}
 </LeafletMap>
