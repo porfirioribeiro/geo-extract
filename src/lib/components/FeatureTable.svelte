@@ -36,7 +36,7 @@
               <IconButton on:click={() => downloadFeature(feature)} class="material-icons">
                 file_download
               </IconButton>
-              <Tooltip style="z-index:90000" xPos="end">Download this feature as GeoJson</Tooltip>
+              <Tooltip xPos="end">Download this feature as GeoJson</Tooltip>
             </Wrapper>
           </Cell>
         </Row>

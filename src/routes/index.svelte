@@ -1,8 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { Feature, GeoJsonGeometryTypes } from 'geojson';
-  import Button, { Icon, Label } from '@smui/button';
-  import Card from '@smui/card';
+  import Select, { Option } from '@smui/select';
+  import FormField from '@smui/form-field';
+  import Icon from '@smui/select/icon';
   import { browser } from '$app/env';
 
   let LeafletContainer;
@@ -12,8 +13,6 @@
       LeafletContainer = (await import('$lib/components/LeafletContainer.svelte')).default;
     }
   });
-
-  $: console.log(LeafletContainer);
 
   import DropTarget from '$lib/components/DropTarget.svelte';
   import { fileToGeoJson } from '$lib/utils/kml';
@@ -45,19 +44,20 @@
 <div class="app">
   <div class="toolbar" style="grid-area: tb">
     <DropTarget onSelect={onSelectFiles} />
-    <label>
-      Filter:
-      <select bind:value={filter}>
-        <option value={undefined}>All</option>
+    <div>
+      <Select bind:value={filter} label="Filter:" disabled={features.length == 0}>
+        <Option value={undefined} />
         {#each filters as f}
-          <option value={f}>{f}</option>
+          <Option value={f}>{f}</Option>
         {/each}
-      </select>
-    </label>
+      </Select>
+    </div>
   </div>
 
   <FeatureTable style="grid-area: sd;" {features} />
-  <svelte:component this={LeafletContainer} {features} style="grid-area: map" />
+  <div style="grid-area: map; z-index: 0">
+    <svelte:component this={LeafletContainer} {features} />
+  </div>
 </div>
 
 <style>
