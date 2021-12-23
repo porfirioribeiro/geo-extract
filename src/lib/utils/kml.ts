@@ -1,5 +1,5 @@
 import { kml } from '@tmcw/togeojson';
-import { loadAsync } from 'jszip';
+import jszip from 'jszip';
 import type { GeoJSON } from 'geojson';
 
 export function kmlStringToGeoJson(xml: string) {
@@ -11,7 +11,7 @@ export async function kmlToGeoJson(file: File) {
 }
 
 export async function kmzToGeoJson(file: File) {
-  const zip = await loadAsync(file);
+  const zip = await jszip.loadAsync(file);
   const kmlString = await zip.file('doc.kml').async('text');
 
   return kmlStringToGeoJson(kmlString);
