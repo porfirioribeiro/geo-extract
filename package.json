@@ -21,7 +21,7 @@
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "@types/geojson": "^7946.0.8",
-    "@types/leaflet": "^1.7.6",
+    "@types/leaflet": "^1.7.7",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.5.0",

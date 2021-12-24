@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Feature } from 'geojson';
 
-  import 'leaflet/dist/leaflet.css';
   import { LeafletMap, TileLayer } from 'svelte-leafletjs';
   import type { Map } from 'leaflet';
   import GeoFeature from './GeoFeature.svelte';
