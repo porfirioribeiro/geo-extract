@@ -2,7 +2,7 @@
   import type { Feature } from 'geojson';
 
   import { LeafletMap, TileLayer } from 'svelte-leafletjs';
-  import type { Map } from 'leaflet';
+  import type { Map, MapOptions } from 'leaflet';
   import GeoFeature from './GeoFeature.svelte';
   import bbox from '@turf/bbox';
 
@@ -11,9 +11,9 @@
 
   let lm: { getMap(): Map };
 
-  const mapOptions = {
-    center: [1.250111, 103.830933],
-    zoom: 13
+  const mapOptions: MapOptions = {
+    center: [39.543831, -6.0016343],
+    zoom: 7.33
   };
 
   const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
